@@ -10,8 +10,10 @@ const search = require('./routes/search');
 require('dotenv/config');
 const DB = require('./db/dbconnection');
 
+let data = true;
+
 DB.connect((e) => {
-    if(e) console.log("error"); 
+    if(e) {console.log("error"); data= false;}
     else console.log('db connected')
 });
 
@@ -23,6 +25,10 @@ app.use('/delete',deletePage);
 app.use('/add',add);
 app.use('/search',search);
 
-app.get('/', (req,res) => {res.send('hello world')});
+app.get('/', (req,res) => {
+    let s = `${process.env.DB_USER} ${process.env.DB_PASSWORD} ${process.env.DB_NAME}`
+    if(data)res.send('dbconnected ' +s)
+    else res.send('no db connected ' +s )
+});
 
 app.listen(PORT, () => console.log(`> Listening on port: ${PORT}`));
