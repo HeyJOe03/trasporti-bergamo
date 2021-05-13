@@ -19,6 +19,6 @@ module.exports.ebike = (params) => {
     else return `SELECT * FROM veicoli INNER JOIN ebike ON veicoli.ID=ebike.ID INNER JOIN bici ON veicoli.ID = bici.ID;`;
 }
 module.exports.utente = (params) => {
-    if(params.CF) return `SELECT * FROM utenti WHERE utenti.CF=${params.CF};`;
+    if(params.CF) return `SELECT * FROM utenti WHERE utenti.CF='${params.CF}';`;
     else return `SELECT * FROM utenti;`;
 }

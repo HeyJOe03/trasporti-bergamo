@@ -7,15 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace noleggio_veicoli_VS
 {
     public partial class Accedi : Form
     {
+
+        private string URLsearch = "http://localhost:3000/search/";
+        private string serverResponse = "";
+
         public Accedi()
         {
             InitializeComponent();
             posizioneAccedi();
+           
         }
 
         private void RBaccedi_CheckedChanged(object sender, EventArgs e)
@@ -42,5 +49,58 @@ namespace noleggio_veicoli_VS
             LBLdocumento.Visible = true;
         }
 
+        private void BTNinvia_Click(object sender, EventArgs e)
+        {
+            if (RBaccedi.Checked == true) accediRequest();
+            else registratiRequest();
+        }
+
+
+        private async void accediRequest() {
+
+            string request = "{\"CF\":\"" + TXBCF.Text + "\"}";
+
+            using (var client = new HttpClient())
+                {
+
+                    var response = await client.PostAsync(
+                           URLsearch + "utente",
+                         new StringContent(request, Encoding.UTF8, "application/json")
+                    );
+                    serverResponse = response.Content.ReadAsStringAsync().Result;
+
+                    lblCF.Text = serverResponse;
+                if(serverResponse == "{'error':'no elements'}")
+                {
+                    LBLerror.Text = "Registrati per poter accedere";
+                }
+
+
+                    Dictionary<string, string> daJson = new Dictionary<string, string>();
+                }
+                
+        }
+        private async void registratiRequest() {
+        string request = "{\"CF\":\"" + TXBCF.Text + "\", }";
+
+        using (var client = new HttpClient())
+        {
+
+            var response = await client.PostAsync(
+                   URLsearch + "utente",
+                 new StringContent(request, Encoding.UTF8, "application/json")
+            );
+            serverResponse = response.Content.ReadAsStringAsync().Result;
+
+            lblCF.Text = serverResponse;
+            if (serverResponse == "{'error':'no elements'}")
+            {
+                LBLerror.Text = "Registrati per poter accedere";
+            }
+
+
+            Dictionary<string, string> daJson = new Dictionary<string, string>();
+        }
+    }
     }
 }

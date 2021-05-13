@@ -37,6 +37,7 @@ namespace noleggio_veicoli_VS
             this.RBaccedi = new System.Windows.Forms.RadioButton();
             this.RBregistrati = new System.Windows.Forms.RadioButton();
             this.BTNinvia = new System.Windows.Forms.Button();
+            this.LBLerror = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCF
@@ -109,12 +110,22 @@ namespace noleggio_veicoli_VS
             this.BTNinvia.TabIndex = 7;
             this.BTNinvia.Text = "INVIA";
             this.BTNinvia.UseVisualStyleBackColor = true;
+            this.BTNinvia.Click += new System.EventHandler(this.BTNinvia_Click);
+            // 
+            // LBLerror
+            // 
+            this.LBLerror.AutoSize = true;
+            this.LBLerror.Location = new System.Drawing.Point(248, 33);
+            this.LBLerror.Name = "LBLerror";
+            this.LBLerror.Size = new System.Drawing.Size(0, 17);
+            this.LBLerror.TabIndex = 8;
             // 
             // Accedi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 512);
+            this.Controls.Add(this.LBLerror);
             this.Controls.Add(this.BTNinvia);
             this.Controls.Add(this.RBregistrati);
             this.Controls.Add(this.RBaccedi);
@@ -140,5 +151,6 @@ namespace noleggio_veicoli_VS
         private System.Windows.Forms.RadioButton RBaccedi;
         private System.Windows.Forms.RadioButton RBregistrati;
         private System.Windows.Forms.Button BTNinvia;
+        private System.Windows.Forms.Label LBLerror;
     }
 }

@@ -13,12 +13,12 @@ using System.Windows.Forms;
 
 namespace noleggio_veicoli_VS
 {
-    public partial class Form1 : Form
+    public partial class veicoli_disponibili : Form
     {
         private string URLsearch;
         private string serverResponse = "";
         //private const string url = "https://www.google.com/maps/d/edit?mid=1zeyNvs0maJ7A1r9HMXDlso5MDxTgEbPd&usp=sharing";
-        public Form1()
+        public veicoli_disponibili()
         {
             InitializeComponent();
             URLsearch = "http://localhost:3000/search/";

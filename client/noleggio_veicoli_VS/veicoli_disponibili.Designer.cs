@@ -1,7 +1,7 @@
 ﻿
 namespace noleggio_veicoli_VS
 {
-    partial class Form1
+    partial class veicoli_disponibili
     {
         /// <summary>
         /// Required designer variable.
@@ -44,7 +44,7 @@ namespace noleggio_veicoli_VS
             this.webBrowser1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1720, 450);
+            this.webBrowser1.Size = new System.Drawing.Size(1032, 410);
             this.webBrowser1.TabIndex = 1;
             // 
             // BrowserMap
@@ -54,7 +54,7 @@ namespace noleggio_veicoli_VS
             this.BrowserMap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BrowserMap.MinimumSize = new System.Drawing.Size(20, 20);
             this.BrowserMap.Name = "BrowserMap";
-            this.BrowserMap.Size = new System.Drawing.Size(1720, 450);
+            this.BrowserMap.Size = new System.Drawing.Size(1032, 410);
             this.BrowserMap.TabIndex = 2;
             this.BrowserMap.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser2_DocumentCompleted);
             // 
@@ -99,14 +99,14 @@ namespace noleggio_veicoli_VS
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(305, 31);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1319, 356);
+            this.listBox1.Size = new System.Drawing.Size(620, 356);
             this.listBox1.TabIndex = 9;
             // 
-            // Form1
+            // veicoli_disponibili
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1720, 450);
+            this.ClientSize = new System.Drawing.Size(1032, 410);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.veicoliCHECK);
@@ -114,7 +114,7 @@ namespace noleggio_veicoli_VS
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.BrowserMap);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Form1";
+            this.Name = "veicoli_disponibili";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
