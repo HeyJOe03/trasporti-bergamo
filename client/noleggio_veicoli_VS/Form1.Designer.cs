@@ -97,9 +97,9 @@ namespace noleggio_veicoli_VS
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(235, 31);
+            this.listBox1.Location = new System.Drawing.Point(305, 31);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1389, 388);
+            this.listBox1.Size = new System.Drawing.Size(1319, 356);
             this.listBox1.TabIndex = 9;
             // 
             // Form1
@@ -111,8 +111,8 @@ namespace noleggio_veicoli_VS
             this.Controls.Add(this.label2);
             this.Controls.Add(this.veicoliCHECK);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.BrowserMap);
             this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.BrowserMap);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";

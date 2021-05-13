@@ -16,7 +16,9 @@ namespace noleggio_veicoli_VS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Accedi());
             Application.Run(new Form1());
+
         }
     }
 }
