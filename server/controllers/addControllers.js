@@ -154,6 +154,8 @@ module.exports.monopattinoelettrico = (req,res) => {
     });
 }
 module.exports.utente = (req,res) => {
+
+    console.log(req.body);
     let sql = insertSQL.utente(req.body);
     if(sql === '') {res.json(MissingFields); return}
 

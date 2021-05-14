@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -16,6 +11,7 @@ namespace noleggio_veicoli_VS
     {
 
         private string URLsearch = "http://localhost:3000/search/";
+        private string URLadd = "http://localhost:3000/add/";
         private string serverResponse = "";
 
         public Accedi()
@@ -37,14 +33,14 @@ namespace noleggio_veicoli_VS
 
         private void posizioneAccedi()
         {
-            TXBdocumento.Visible = false;
+            comboBox1.Visible = false;
             CalendarNascita.Visible = false;
             LBLdocumento.Visible = false;
         }
 
         private void posizioneRegistrati()
         {
-            TXBdocumento.Visible = true;
+            comboBox1.Visible = true;
             CalendarNascita.Visible = true;
             LBLdocumento.Visible = true;
         }
@@ -55,8 +51,8 @@ namespace noleggio_veicoli_VS
             else registratiRequest();
         }
 
-
         private async void accediRequest() {
+            if (TXBCF.Text == "") return;
 
             string request = "{\"CF\":\"" + TXBCF.Text + "\"}";
 
@@ -69,38 +65,63 @@ namespace noleggio_veicoli_VS
                     );
                     serverResponse = response.Content.ReadAsStringAsync().Result;
 
+                    serverResponse = serverResponse.Substring(1, serverResponse.Length - 2);//ESTRAE JSON
+
+
                     lblCF.Text = serverResponse;
-                if(serverResponse == "{'error':'no elements'}")
+                if (serverResponse == "\"error\":\"no elements\"")
                 {
-                    LBLerror.Text = "Registrati per poter accedere";
+                    LBLerror.Text = "Registrati per poter accedere"; return;
                 }
 
-
+                else
+                {
                     Dictionary<string, string> daJson = new Dictionary<string, string>();
+                    Program.accesso = true;
+                    this.Close();
+                }
+
                 }
                 
         }
+
         private async void registratiRequest() {
-        string request = "{\"CF\":\"" + TXBCF.Text + "\", }";
+            string request = registraStringrRequest();
 
-        using (var client = new HttpClient())
-        {
-
-            var response = await client.PostAsync(
-                   URLsearch + "utente",
-                 new StringContent(request, Encoding.UTF8, "application/json")
-            );
-            serverResponse = response.Content.ReadAsStringAsync().Result;
-
-            lblCF.Text = serverResponse;
-            if (serverResponse == "{'error':'no elements'}")
+            using (var client = new HttpClient())
             {
-                LBLerror.Text = "Registrati per poter accedere";
+
+                var response = await client.PostAsync(
+                       URLadd + "utente",
+                     new StringContent(request, Encoding.UTF8, "application/json")
+                );
+                serverResponse = response.Content.ReadAsStringAsync().Result;
+
+                //LBLerror.Text = serverResponse;
+                if (serverResponse == "{'message':'good state'}")
+                {
+                    LBLerror.Text = "Procedi con l'accesso";
+                    RBaccedi.Checked = true;
+                    RBregistrati.Checked = false;
+                }
+                else LBLerror.Text = "Errore nella registrazione";
+
+
+                Dictionary<string, string> daJson = new Dictionary<string, string>();
             }
-
-
-            Dictionary<string, string> daJson = new Dictionary<string, string>();
         }
-    }
+
+        private string registraStringrRequest()
+        {
+            string request =
+                "{\"CF\":\"" + lblCF.Text +
+                "\",\"documento\":\"" + comboBox1.Text +
+                "\",\"giorno\":" + CalendarNascita.Value.Day +
+                ",\"mese\":"+ CalendarNascita.Value.Month +
+                ",\"anno\":" + CalendarNascita.Value.Year + "}";
+            LBLerror.Text = request;
+           
+            return request;
+        }
     }
 }

@@ -17,8 +17,10 @@ namespace noleggio_veicoli_VS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Accedi());
-            Application.Run(new veicoli_disponibili());
+            if(accesso) Application.Run(new veicoli_disponibili());
 
         }
+
+        public static bool accesso = false;
     }
 }

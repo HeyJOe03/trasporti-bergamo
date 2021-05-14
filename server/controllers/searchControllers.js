@@ -70,12 +70,12 @@ module.exports.ebike = (req,res) => {
 }
 module.exports.utente = (req,res) => {
     
-    console.log(req.body);
+    //console.log(req.body);
     let cf = {};
     if(req.body.CF === undefined) cf = {};
     else cf = {CF: req.body.CF};
 
-    console.log(searchSQL.utente(cf));
+    //console.log(searchSQL.utente(cf));
     DB.query(searchSQL.utente(cf), (e,result) => {
         if(e) res.json(badQuery);
         else if(!result[0]) res.json(noElements);

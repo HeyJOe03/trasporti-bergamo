@@ -32,12 +32,12 @@ namespace noleggio_veicoli_VS
             this.lblCF = new System.Windows.Forms.Label();
             this.LBLdocumento = new System.Windows.Forms.Label();
             this.TXBCF = new System.Windows.Forms.TextBox();
-            this.TXBdocumento = new System.Windows.Forms.TextBox();
-            this.CalendarNascita = new System.Windows.Forms.MonthCalendar();
             this.RBaccedi = new System.Windows.Forms.RadioButton();
             this.RBregistrati = new System.Windows.Forms.RadioButton();
             this.BTNinvia = new System.Windows.Forms.Button();
             this.LBLerror = new System.Windows.Forms.Label();
+            this.CalendarNascita = new System.Windows.Forms.DateTimePicker();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblCF
@@ -64,19 +64,6 @@ namespace noleggio_veicoli_VS
             this.TXBCF.Name = "TXBCF";
             this.TXBCF.Size = new System.Drawing.Size(306, 22);
             this.TXBCF.TabIndex = 2;
-            // 
-            // TXBdocumento
-            // 
-            this.TXBdocumento.Location = new System.Drawing.Point(55, 194);
-            this.TXBdocumento.Name = "TXBdocumento";
-            this.TXBdocumento.Size = new System.Drawing.Size(306, 22);
-            this.TXBdocumento.TabIndex = 3;
-            // 
-            // CalendarNascita
-            // 
-            this.CalendarNascita.Location = new System.Drawing.Point(55, 234);
-            this.CalendarNascita.Name = "CalendarNascita";
-            this.CalendarNascita.TabIndex = 4;
             // 
             // RBaccedi
             // 
@@ -120,17 +107,36 @@ namespace noleggio_veicoli_VS
             this.LBLerror.Size = new System.Drawing.Size(0, 17);
             this.LBLerror.TabIndex = 8;
             // 
+            // CalendarNascita
+            // 
+            this.CalendarNascita.Location = new System.Drawing.Point(55, 299);
+            this.CalendarNascita.Name = "CalendarNascita";
+            this.CalendarNascita.Size = new System.Drawing.Size(200, 22);
+            this.CalendarNascita.TabIndex = 9;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Patente",
+            "Carta d\'identità",
+            "Tessera sanitaria"});
+            this.comboBox1.Location = new System.Drawing.Point(55, 200);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(306, 24);
+            this.comboBox1.TabIndex = 10;
+            // 
             // Accedi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 512);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.CalendarNascita);
             this.Controls.Add(this.LBLerror);
             this.Controls.Add(this.BTNinvia);
             this.Controls.Add(this.RBregistrati);
             this.Controls.Add(this.RBaccedi);
-            this.Controls.Add(this.CalendarNascita);
-            this.Controls.Add(this.TXBdocumento);
             this.Controls.Add(this.TXBCF);
             this.Controls.Add(this.LBLdocumento);
             this.Controls.Add(this.lblCF);
@@ -146,11 +152,11 @@ namespace noleggio_veicoli_VS
         private System.Windows.Forms.Label lblCF;
         private System.Windows.Forms.Label LBLdocumento;
         private System.Windows.Forms.TextBox TXBCF;
-        private System.Windows.Forms.TextBox TXBdocumento;
-        private System.Windows.Forms.MonthCalendar CalendarNascita;
         private System.Windows.Forms.RadioButton RBaccedi;
         private System.Windows.Forms.RadioButton RBregistrati;
         private System.Windows.Forms.Button BTNinvia;
         private System.Windows.Forms.Label LBLerror;
+        private System.Windows.Forms.DateTimePicker CalendarNascita;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Noleggio_Veicoli
 {
@@ -30,6 +26,34 @@ namespace Noleggio_Veicoli
             longitudine = 0.0;
             costoMinuto = 0;
             posti = 0;
+        }
+
+        public Veicolo(Dictionary<string, string> d)
+        {
+            //veicolo_from_dictionary_base(d);
+            Veicolo_from_dictionary(d);
+        }
+
+        //protected void veicolo_from_dictionary_base(Dictionary<string, string> D)
+        //{
+        //    //Dictionary<string, string> d = new Dictionary<string, string>();
+          
+        //}
+
+        protected virtual void Veicolo_from_dictionary(Dictionary<string, string> D) {
+            this.identificativo = D["identificativo"];
+            this.marca = D["marca"];
+            int.TryParse(D["stato"], out int s);
+            this.stato = s;
+            this.disponibilita = D["disponibilita"];
+            double.TryParse(D["latitudine"], out double la);
+            this.latitudine = la;
+            double.TryParse(D["longitudine"], out double lo);
+            this.longitudine = lo;
+            int.TryParse(D["costoMinuto"], out int c);
+            this.costoMinuto = c;
+            int.TryParse(D["posti"], out int p);
+            this.posti = p;
         }
 
         public Veicolo(string id,string mr,int st,string ds,double lt,double lg,float cm,int p)
@@ -189,6 +213,20 @@ namespace Noleggio_Veicoli
             costoSblocco = cS;
         }
 
+        protected override void Veicolo_from_dictionary(Dictionary<string, string> d)
+        {
+            base.Veicolo_from_dictionary(d);
+            tipologia = d["tipologia"];
+            char.TryParse(d["dimensione"],out char dim);
+            dimensione = dim;
+            bool.TryParse(d["seggiolino"], out bool s);
+            seggiolino = s;
+            bool.TryParse(d["casco"], out bool c);
+            casco = c;
+            int.TryParse(d["costoSblocco"], out int cs);
+            costoSblocco = cs;
+        }
+
         public string Tipologia
         {
             set
@@ -293,48 +331,42 @@ namespace Noleggio_Veicoli
                 return caricaBatteria;
             }
         }
+
+        protected override void Veicolo_from_dictionary(Dictionary<string, string> d)
+        {
+            base.Veicolo_from_dictionary(d);
+            float.TryParse(d["caricaBatteria"], out float cb);
+            caricaBatteria = cb;
+        }
     }
     ////////////////////////////////////////////////////////////////////CLASSE MONOPATTINO-CLASSE MONOPATTINO-CLASSE MONOPATTINO////////////////////////////////////////////////////////////////
     public class Monopattino : Veicolo
     {
-        protected int livelloBatteria;
+        //protected int livelloBatteria;
         protected int batteriaMassima;
-        protected float costoOra;
-        protected float costoGiorno;
+        //protected float costoOra;
+        //protected float costoGiorno;
         protected bool segnaleAcustico;
 
         public Monopattino()
         {
-            livelloBatteria = 0;
+            //livelloBatteria = 0;
             batteriaMassima = 0;
-            costoOra = 0;
-            costoGiorno = 0;
+            //costoOra = 0;
+            //costoGiorno = 0;
             segnaleAcustico = false;
         }
 
-        public Monopattino(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, int lb, int bm, float cO, float cG, bool sa) : base(id, mr, st, ds, lt, lg, cm, p)
+        public Monopattino(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, int bm, bool sa) : base(id, mr, st, ds, lt, lg, cm, p)
         {
-            livelloBatteria = lb;
+            //livelloBatteria = lb;
             batteriaMassima = bm;
-            costoOra = cO;
-            costoGiorno = cG;
+            //costoOra = cO;
+            //costoGiorno = cG;
             segnaleAcustico = sa;
         }
 
-        public int LivelloBatteria
-        {
-            set
-            {
-                if (value >= 0)
-                {
-                    livelloBatteria = value;
-                }
-            }
-            get
-            {
-                return livelloBatteria;
-            }
-        }
+  
 
         public int BatteriaMassima
         {
@@ -348,36 +380,6 @@ namespace Noleggio_Veicoli
             get
             {
                 return batteriaMassima;
-            }
-        }
-
-        public float CostoOra
-        {
-            set
-            {
-                if (value >= 0)
-                {
-                    costoOra = value;
-                }
-            }
-            get
-            {
-                return costoOra;
-            }
-        }
-
-        public float CostoGiorno
-        {
-            set
-            {
-                if (value >= 0)
-                {
-                    costoGiorno = value;
-                }
-            }
-            get
-            {
-                return costoGiorno;
             }
         }
 
@@ -395,6 +397,16 @@ namespace Noleggio_Veicoli
                 return segnaleAcustico;
             }
         }
+
+        protected override void Veicolo_from_dictionary(Dictionary<string, string> D)
+        {
+            base.Veicolo_from_dictionary(D);
+            int.TryParse(D["batteriaMassima"], out int bm);
+            this.batteriaMassima = bm;
+
+            bool.TryParse(D["segnaleAcustico"], out bool s);
+            this.segnaleAcustico = s;
+        }
     }
     ////////////////////////////////////////////////////////////////CLASSE MOTORINOELETTRICO-CLASSE MOTORINOELETTRICO-CLASSE MOTORINOELETTRICO//////////////////////////////////////////////////
     public class MotorinoElettrico : Veicolo
@@ -402,25 +414,23 @@ namespace Noleggio_Veicoli
         protected string targa;
         protected int livelloBatteria;
         protected bool radio;
-        protected float costoH;
-        protected float costoD;
+        //protected float costoH;
+        //protected float costoD;
 
         public MotorinoElettrico()
         {
             targa = "";
             livelloBatteria = 0;
             radio = false;
-            costoH = 0;
-            costoD = 0;
+            
         }
 
-        public MotorinoElettrico(string id, string mr, int st, string ds, double lt, double lg, float cm, int p,string tg,int lB,bool rd,float cH, float cD) : base(id, mr, st, ds, lt, lg, cm, p)
+        public MotorinoElettrico(string id, string mr, int st, string ds, double lt, double lg, float cm, int p,string tg,int lB,bool rd) : base(id, mr, st, ds, lt, lg, cm, p)
         {
             targa = tg;
             livelloBatteria = lB;
             radio = rd;
-            costoH = cH;
-            costoD = cD;
+            
         }
 
         public string Targa
@@ -468,34 +478,14 @@ namespace Noleggio_Veicoli
             }
         }
 
-        public float CostoH
+        protected override void Veicolo_from_dictionary(Dictionary<string, string> D)
         {
-            set
-            {
-                if (value >= 0)
-                {
-                    costoH = value;
-                }
-            }
-            get
-            {
-                return costoH;
-            }
-        }
-
-        public float CostoD
-        {
-            set
-            {
-                if (value >= 0)
-                {
-                    costoD = value;
-                }
-            }
-            get
-            {
-                return costoD;
-            }
+            base.Veicolo_from_dictionary(D);
+            this.Targa = D["targa"];
+            bool.TryParse(D["radio"], out bool r);
+            this.Radio = r;
+            int.TryParse(D["livelloBatteria"], out int lb);
+            this.livelloBatteria = lb;
         }
     }
     ////////////////////////////////////////////////////////////////////////CLASSE AUTO-CLASSE AUTO-CLASSE AUTO/////////////////////////////////////////////////////////////////////////////////
@@ -503,28 +493,23 @@ namespace Noleggio_Veicoli
     {
         protected string targa;
         protected int livelloBatteria;
-        protected float prezzoGiorno;
-        protected float prezzoOra;
+        //protected float prezzoGiorno;
+        //protected float prezzoOra;
 
         public Auto()
         {
             targa = "";
             livelloBatteria = 0;
-            prezzoGiorno = 0;
-            prezzoOra = 0;
+            //prezzoGiorno = 0;
+            //prezzoOra = 0;
         }
 
-        public Auto(Dictionary<string, string> d)
-        {
-            //this = new Auto(d["ID"], d[""], d[""], d[""], d[""], d[""], d[""], d[""], d[""], d[""], d[""], d[""]);
-        }
-
-        public Auto(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tg, int lB, float pG, float pO) : base(id, mr, st, ds, lt, lg, cm, p)
+        public Auto(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tg, int lB) : base(id, mr, st, ds, lt, lg, cm, p)
         {
             targa = tg;
             livelloBatteria = lB;
-            prezzoGiorno = pG;
-            prezzoOra = pO;
+            //prezzoGiorno = pG;
+            //prezzoOra = pO;
         }
 
         public string Targa
@@ -557,34 +542,12 @@ namespace Noleggio_Veicoli
             }
         }
 
-        public float PrezzoGiorno
+        protected override void Veicolo_from_dictionary(Dictionary<string, string> D)
         {
-            set
-            {
-                if (value >= 0)
-                {
-                    prezzoGiorno = value;
-                }
-            }
-            get
-            {
-                return prezzoGiorno;
-            }
-        }
-
-        public float PrezzoOra
-        {
-            set
-            {
-                if (value >= 0)
-                {
-                    prezzoOra = value;
-                }
-            }
-            get
-            {
-                return prezzoOra;
-            }
+            base.Veicolo_from_dictionary(D);
+            targa = D["targa"];
+            int.TryParse(D["livelloBatteria"], out int lb);
+            livelloBatteria = lb;
         }
     }
 }
