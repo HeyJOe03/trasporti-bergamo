@@ -51,11 +51,11 @@ namespace noleggio_veicoli_VS
             this.latitudine = la;
             double.TryParse(D["longitudine"], out double lo);
             this.longitudine = lo;
-            int.TryParse(D["costoMinuto"], out int c);
+            float.TryParse(D["costoMinuto"], out float c);
             this.costoMinuto = c;
-            int.TryParse(D["costoGiorno"], out int g);
+            float.TryParse(D["costoGiorno"], out float g);
             this.costoGiorno = g;
-            int.TryParse(D["costoOra"], out int o);
+            float.TryParse(D["costoOra"], out float o);
             this.costoOra = o;
             int.TryParse(D["posti"], out int p);
             this.posti = p;
@@ -76,7 +76,7 @@ namespace noleggio_veicoli_VS
         public int Identificativo
         {
             set{
-                if(value is int)
+                if(value != 0)
                 {
                     identificativo = value;
                 }
@@ -176,6 +176,36 @@ namespace noleggio_veicoli_VS
             }
         }
 
+        public float CostoOra
+        {
+            set
+            {
+                if (value >= 0)
+                {
+                    costoOra = value;
+                }
+            }
+            get
+            {
+                return costoOra;
+            }
+        }
+
+        public float CostoGiorno
+        {
+            set
+            {
+                if (value >= 0)
+                {
+                    costoGiorno = value;
+                }
+            }
+            get
+            {
+                return costoGiorno;
+            }
+        }
+
         public int Posti
         {
             set
@@ -189,6 +219,24 @@ namespace noleggio_veicoli_VS
             {
                 return posti;
             }
+        }
+
+        public override string ToString()
+        {
+            string text = "";
+            text = text +
+                "ID: " + Identificativo.ToString() + "\n" + 
+                "Marca: " + Marca + "\n" + 
+                "Stato: " + Stato.ToString() + "\n" + 
+                "Disponibilita: " + Disponibiita + "\n" + 
+                "Longitudine: " + Longitudine.ToString() + "\n" + 
+                "Latitudine: " + Latitudine.ToString() + "\n" + 
+                "CostoMinuto: " + CostoMinuto.ToString() + "\n" +
+                "CostoOra: " + costoOra.ToString() + "\n" +
+                "CostoGiorno: " + costoGiorno.ToString() + "\n" +
+                "Posti: " + posti.ToString() + "\n";                ;
+
+            return text;
         }
     }
     ////////////////////////////////////////////////////////////////////////CLASSE BICI-CLASSE BICI-CLASSE BICI/////////////////////////////////////////////////////////////////////////////////
@@ -570,6 +618,16 @@ namespace noleggio_veicoli_VS
             targa = D["targa"];
             int.TryParse(D["livelloBatteria"], out int lb);
             livelloBatteria = lb;
+        }
+
+        public override string ToString()
+        {
+            string text = base.ToString();
+            text = text +
+                "Targa: " + targa + "\n" +
+                "LivelloBatteria: " + livelloBatteria.ToString() + "\n"
+                ;
+            return text;
         }
     }
 }

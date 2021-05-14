@@ -29,34 +29,11 @@ namespace noleggio_veicoli_VS
         /// </summary>
         private void InitializeComponent()
         {
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.BrowserMap = new System.Windows.Forms.WebBrowser();
             this.label1 = new System.Windows.Forms.Label();
             this.veicoliCHECK = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1032, 410);
-            this.webBrowser1.TabIndex = 1;
-            // 
-            // BrowserMap
-            // 
-            this.BrowserMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrowserMap.Location = new System.Drawing.Point(0, 0);
-            this.BrowserMap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.BrowserMap.MinimumSize = new System.Drawing.Size(20, 20);
-            this.BrowserMap.Name = "BrowserMap";
-            this.BrowserMap.Size = new System.Drawing.Size(1032, 410);
-            this.BrowserMap.TabIndex = 2;
-            this.BrowserMap.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser2_DocumentCompleted);
             // 
             // label1
             // 
@@ -100,6 +77,7 @@ namespace noleggio_veicoli_VS
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(620, 308);
             this.listBox1.TabIndex = 9;
+            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // veicoli_disponibili
             // 
@@ -110,8 +88,6 @@ namespace noleggio_veicoli_VS
             this.Controls.Add(this.label2);
             this.Controls.Add(this.veicoliCHECK);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.webBrowser1);
-            this.Controls.Add(this.BrowserMap);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "veicoli_disponibili";
             this.Text = "Form1";
@@ -121,8 +97,6 @@ namespace noleggio_veicoli_VS
         }
 
         #endregion
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.WebBrowser BrowserMap;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckedListBox veicoliCHECK;
         private System.Windows.Forms.Label label2;

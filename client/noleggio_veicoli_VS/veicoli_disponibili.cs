@@ -15,20 +15,19 @@ namespace noleggio_veicoli_VS
 {
     public partial class veicoli_disponibili : Form
     {
-        private string URLsearch;
+        private readonly string URLsearch;
         private string serverResponse = "";
 
         //private const string url = "https://www.google.com/maps/d/edit?mid=1zeyNvs0maJ7A1r9HMXDlso5MDxTgEbPd&usp=sharing";
+
         public veicoli_disponibili()
         {
             InitializeComponent();
             URLsearch = "http://localhost:3000/search/";
 
-            string s = "";
+            //string s = "";
            
             //serverSearchRequest("ebike");
-
-
             //try { BrowserMap.Navigate(url); } catch(Exception e) { String error = e.Message; }
         }
       
@@ -38,8 +37,8 @@ namespace noleggio_veicoli_VS
 
             string request = "";
 
-            try
-            {
+            //try
+            //{
                 using (var client = new HttpClient())
                 {
 
@@ -86,51 +85,53 @@ namespace noleggio_veicoli_VS
                     for (int i = 0; i < elements.Length-1; i++)
                     {
                         daJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(elements[i]);
-                        listBox1.Items.Add(veicolo + ":" + daJson["ID"]);
 
+
+                    //BUGFIX per i tryparse
+                        Dictionary<string, string> copy = new Dictionary<string,string>(daJson);
+                        foreach (KeyValuePair<string,string> e in daJson)
+                        {
+                            copy[e.Key] = copy[e.Key].Replace('.',',');
+                        }
+                        daJson = copy;
+
+                        string veicoloUserName = ""; 
 
                         switch (veicolo)
                         {
                             case "auto":
                                 Program.auto.Add(new Auto(daJson));
+                                veicoloUserName = "auto";
                                 break;
                             case "bici":
                                 Program.bici.Add(new Bici(daJson));
+                                veicoloUserName = "bici";
                                 break;
                             case "ebike":
                                 Program.ebike.Add(new EBike(daJson));
+                                veicoloUserName = "e-bike";
                                 break;
                             case "motorinoelettrico":
                                 Program.motorino.Add(new MotorinoElettrico(daJson));
+                                veicoloUserName = "motorino elettrico";
                                 break;
                             case "monopattinoelettrico":
                                 Program.monopattino.Add(new Monopattino(daJson));
+                                veicoloUserName = "monopattino elettrico";
                                 break;
                             default:
                                 break;
                         }
+
+
+                        listBox1.Items.Add(veicoloUserName + ":" + daJson["ID"]);
                     }
                 }
-            } catch (Exception e){
-                label2.Text = e.Message;
-            }
+            //} catch (Exception e){
+            //    label2.Text = e.Message;
+            //}
             
         }
-
-        private void webBrowser2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void veicoliCHECK_SelectedValueChanged(object sender, EventArgs e) { }
-
-
-        private void veicoliCHECK_ItemCheck(object sender, ItemCheckEventArgs e) { }
 
         private void veicoliCHECK_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -164,7 +165,22 @@ namespace noleggio_veicoli_VS
                 //serverSearchRequest(veicolo);
             }
         }
-        
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+
+            foreach (var item in listBox1.SelectedItems)
+            {
+            
+                Noleggio formNoleggio = new Noleggio(item.ToString());
+                formNoleggio.Show();
+
+                break; //solo 1 selezionato
+            }
+
+
+            //label2.Text = sender.GetType().ToString();
+        }
     }
 }
 

@@ -10,8 +10,8 @@ namespace noleggio_veicoli_VS
     public partial class Accedi : Form
     {
 
-        private string URLsearch = "http://localhost:3000/search/";
-        private string URLadd = "http://localhost:3000/add/";
+        private readonly string URLsearch = "http://localhost:3000/search/";
+        private readonly string URLadd = "http://localhost:3000/add/";
         private string serverResponse = "";
 
         public Accedi()
@@ -109,7 +109,7 @@ namespace noleggio_veicoli_VS
                 else LBLerror.Text = "Errore nella registrazione";
 
 
-                Dictionary<string, string> daJson = new Dictionary<string, string>();
+                //Dictionary<string, string> daJson = new Dictionary<string, string>();
             }
         }
 
