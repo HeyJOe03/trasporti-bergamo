@@ -69,17 +69,19 @@ namespace noleggio_veicoli_VS
 
 
                     lblCF.Text = serverResponse;
-                if (serverResponse == "\"error\":\"no elements\"")
-                {
-                    LBLerror.Text = "Registrati per poter accedere"; return;
-                }
 
-                else
-                {
-                    Dictionary<string, string> daJson = new Dictionary<string, string>();
+                // TODO: decommentami
+
+                //if (serverResponse == "\"error\":\"no elements\"")
+                //{
+                //    LBLerror.Text = "Registrati per poter accedere"; return;
+                //}
+
+                //else
+                //{
                     Program.accesso = true;
                     this.Close();
-                }
+                //}
 
                 }
                 

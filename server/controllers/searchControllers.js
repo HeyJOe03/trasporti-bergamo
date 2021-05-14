@@ -47,7 +47,7 @@ module.exports.bici = (req,res) => {
     let id = {};
     if(req.body.ID === undefined) id = {};
     else id = {ID: req.body.ID};
-    DB.query(searchSQL.motorinoelettrico(id), (e,result) => {
+    DB.query(searchSQL.bici(id), (e,result) => {
         if(e) res.json(badQuery);
         else if(!result[0]) res.json(noElements);
         else{
@@ -60,7 +60,7 @@ module.exports.ebike = (req,res) => {
     let id = {};
     if(req.body.ID === undefined) id = {};
     else id = {ID: req.body.ID};
-    DB.query(searchSQL.motorinoelettrico(id), (e,result) => {
+    DB.query(searchSQL.ebike(id), (e,result) => {
         if(e) res.json(badQuery);
         else if(!result[0]) res.json(noElements);
         else{

@@ -16,11 +16,18 @@ namespace noleggio_veicoli_VS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Accedi());
+            //Application.Run(new Accedi());
+            accesso = true;
             if(accesso) Application.Run(new veicoli_disponibili());
 
         }
 
         public static bool accesso = false;
+
+        public static List<Auto> auto;
+        public static List<Bici> bici;
+        public static List<EBike> ebike;
+        public static List<Monopattino> monopattino;
+        public static List<MotorinoElettrico> motorino;
     }
 }

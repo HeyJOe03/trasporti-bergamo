@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Noleggio_Veicoli
+namespace noleggio_veicoli_VS
 {
     ////////////////////////////////////////////////////////////////////////CLASSE VEICOLO-CLASSE VEICOLO-CLASSE VEICOLO////////////////////////////////////////////////////////////////////////
     public class Veicolo
     {
-        protected string identificativo;
+        protected int identificativo;
         protected string marca;
         protected int stato;
         protected string disponibilita;
@@ -18,7 +18,7 @@ namespace Noleggio_Veicoli
 
         public Veicolo()
         {
-            identificativo = "";
+            identificativo = -1;
             marca = "";
             stato = -1;
             disponibilita = "";
@@ -41,7 +41,8 @@ namespace Noleggio_Veicoli
         //}
 
         protected virtual void Veicolo_from_dictionary(Dictionary<string, string> D) {
-            this.identificativo = D["identificativo"];
+            int.TryParse(D["ID"], out int id);
+            this.identificativo = id; 
             this.marca = D["marca"];
             int.TryParse(D["stato"], out int s);
             this.stato = s;
@@ -52,11 +53,15 @@ namespace Noleggio_Veicoli
             this.longitudine = lo;
             int.TryParse(D["costoMinuto"], out int c);
             this.costoMinuto = c;
+            int.TryParse(D["costoGiorno"], out int g);
+            this.costoGiorno = g;
+            int.TryParse(D["costoOra"], out int o);
+            this.costoOra = o;
             int.TryParse(D["posti"], out int p);
             this.posti = p;
         }
 
-        public Veicolo(string id,string mr,int st,string ds,double lt,double lg,float cm,int p)
+        public Veicolo(int id,string mr,int st,string ds,double lt,double lg,float cm,int p)
         {
             identificativo = id;
             marca = mr;
@@ -68,10 +73,10 @@ namespace Noleggio_Veicoli
             posti = p;
         }
 
-        public string Identificativo
+        public int Identificativo
         {
             set{
-                if(value is string)
+                if(value is int)
                 {
                     identificativo = value;
                 }
@@ -204,7 +209,9 @@ namespace Noleggio_Veicoli
             costoSblocco = 0;
         }
 
-        public Bici(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tp, char dm, bool sg, bool cs, float cS) : base(id,mr,st,ds,lt,lg,cm,p)
+        public Bici(Dictionary<string, string> S) : base(S) { }
+
+        public Bici(int id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tp, char dm, bool sg, bool cs, float cS) : base(id,mr,st,ds,lt,lg,cm,p)
         {
             tipologia = tp;
             dimensione = dm;
@@ -216,6 +223,11 @@ namespace Noleggio_Veicoli
         protected override void Veicolo_from_dictionary(Dictionary<string, string> d)
         {
             base.Veicolo_from_dictionary(d);
+
+
+
+
+
             tipologia = d["tipologia"];
             char.TryParse(d["dimensione"],out char dim);
             dimensione = dim;
@@ -312,7 +324,11 @@ namespace Noleggio_Veicoli
             caricaBatteria = 0;
         }
 
-        public EBike(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tp, char dm, bool sg, bool cs, float cS, float cb) : base(id, mr, st, ds, lt, lg, cm, p,tp,dm,sg,cs,cS)
+        public EBike(Dictionary<string, string> S) : base(S){
+            
+        }
+
+        public EBike(int id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tp, char dm, bool sg, bool cs, float cS, float cb) : base(id, mr, st, ds, lt, lg, cm, p,tp,dm,sg,cs,cS)
         {
             caricaBatteria = cb;
         }
@@ -348,6 +364,8 @@ namespace Noleggio_Veicoli
         //protected float costoGiorno;
         protected bool segnaleAcustico;
 
+        public Monopattino(Dictionary<string, string> S) : base(S) { }
+
         public Monopattino()
         {
             //livelloBatteria = 0;
@@ -357,7 +375,7 @@ namespace Noleggio_Veicoli
             segnaleAcustico = false;
         }
 
-        public Monopattino(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, int bm, bool sa) : base(id, mr, st, ds, lt, lg, cm, p)
+        public Monopattino(int id, string mr, int st, string ds, double lt, double lg, float cm, int p, int bm, bool sa) : base(id, mr, st, ds, lt, lg, cm, p)
         {
             //livelloBatteria = lb;
             batteriaMassima = bm;
@@ -417,6 +435,8 @@ namespace Noleggio_Veicoli
         //protected float costoH;
         //protected float costoD;
 
+        public MotorinoElettrico(Dictionary<string, string> S) : base(S) { }
+
         public MotorinoElettrico()
         {
             targa = "";
@@ -425,7 +445,7 @@ namespace Noleggio_Veicoli
             
         }
 
-        public MotorinoElettrico(string id, string mr, int st, string ds, double lt, double lg, float cm, int p,string tg,int lB,bool rd) : base(id, mr, st, ds, lt, lg, cm, p)
+        public MotorinoElettrico(int id, string mr, int st, string ds, double lt, double lg, float cm, int p,string tg,int lB,bool rd) : base(id, mr, st, ds, lt, lg, cm, p)
         {
             targa = tg;
             livelloBatteria = lB;
@@ -504,13 +524,15 @@ namespace Noleggio_Veicoli
             //prezzoOra = 0;
         }
 
-        public Auto(string id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tg, int lB) : base(id, mr, st, ds, lt, lg, cm, p)
+        public Auto(int id, string mr, int st, string ds, double lt, double lg, float cm, int p, string tg, int lB) : base(id, mr, st, ds, lt, lg, cm, p)
         {
             targa = tg;
             livelloBatteria = lB;
             //prezzoGiorno = pG;
             //prezzoOra = pO;
         }
+
+        public Auto(Dictionary<string, string> S) : base(S) { }
 
         public string Targa
         {

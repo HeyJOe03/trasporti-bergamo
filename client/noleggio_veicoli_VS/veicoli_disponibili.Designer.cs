@@ -79,19 +79,18 @@ namespace noleggio_veicoli_VS
             this.veicoliCHECK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.veicoliCHECK.Name = "veicoliCHECK";
             this.veicoliCHECK.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.veicoliCHECK.Size = new System.Drawing.Size(197, 123);
+            this.veicoliCHECK.Size = new System.Drawing.Size(197, 89);
             this.veicoliCHECK.TabIndex = 7;
-            this.veicoliCHECK.SelectedValueChanged += new System.EventHandler(this.veicoliCHECK_SelectedValueChanged);
+            this.veicoliCHECK.SelectedIndexChanged += new System.EventHandler(this.veicoliCHECK_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(44, 202);
+            this.label2.Location = new System.Drawing.Point(29, 372);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(0, 17);
             this.label2.TabIndex = 8;
-            this.label2.Text = "label2";
             // 
             // listBox1
             // 
@@ -99,7 +98,7 @@ namespace noleggio_veicoli_VS
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(305, 31);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(620, 356);
+            this.listBox1.Size = new System.Drawing.Size(620, 308);
             this.listBox1.TabIndex = 9;
             // 
             // veicoli_disponibili

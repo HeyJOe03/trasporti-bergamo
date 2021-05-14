@@ -17,6 +17,7 @@ namespace noleggio_veicoli_VS
     {
         private string URLsearch;
         private string serverResponse = "";
+
         //private const string url = "https://www.google.com/maps/d/edit?mid=1zeyNvs0maJ7A1r9HMXDlso5MDxTgEbPd&usp=sharing";
         public veicoli_disponibili()
         {
@@ -30,10 +31,7 @@ namespace noleggio_veicoli_VS
 
             //try { BrowserMap.Navigate(url); } catch(Exception e) { String error = e.Message; }
         }
-
-
-        
-
+      
         private async void serverSearchRequest(string veicolo)
         {
             //string request = Program.DictionaryToString(richiesta);
@@ -57,34 +55,67 @@ namespace noleggio_veicoli_VS
 
                     for (int i = 0; i < elements.Length - 1; i++)
                     {
-
                         if (elements[i][0] == ',') elements[i] = elements[i].Substring(1, elements[i].Length - 1);
                         if (elements[i][elements[i].Length -1] != '}') elements[i] = elements[i] + "}";
-                        //listBox1.Items.Add(elements[i]);
-                        //listBox1.Items.Add("hello world");
                     }
 
                     
                     Dictionary<string, string> daJson = new Dictionary<string, string>();
-
-
-
-                    for (int i = 0; i < elements.Length; i++)
+                    switch (veicolo)
                     {
-                        daJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(elements[i]);
-                        listBox1.Items.Add(veicolo + ":" + daJson["ID"]);
+                        case "auto":
+                            Program.auto = new List<Auto>();
+                            break;
+                        case "bici":
+                            Program.bici = new List<Bici>();
+                            break;
+                        case "ebike":
+                            Program.ebike = new List<EBike>();
+                            break;
+                        case "motorinoelettrico":
+                            Program.motorino = new List<MotorinoElettrico>();
+                            break;
+                        case "monopattinoelettrico":
+                            Program.monopattino = new List<Monopattino>();
+                            break;
+                        default:
+                            break;
                     }
 
 
+                    for (int i = 0; i < elements.Length-1; i++)
+                    {
+                        daJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(elements[i]);
+                        listBox1.Items.Add(veicolo + ":" + daJson["ID"]);
 
+
+                        switch (veicolo)
+                        {
+                            case "auto":
+                                Program.auto.Add(new Auto(daJson));
+                                break;
+                            case "bici":
+                                Program.bici.Add(new Bici(daJson));
+                                break;
+                            case "ebike":
+                                Program.ebike.Add(new EBike(daJson));
+                                break;
+                            case "motorinoelettrico":
+                                Program.motorino.Add(new MotorinoElettrico(daJson));
+                                break;
+                            case "monopattinoelettrico":
+                                Program.monopattino.Add(new Monopattino(daJson));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             } catch (Exception e){
                 label2.Text = e.Message;
             }
             
         }
-
-
 
         private void webBrowser2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
@@ -96,8 +127,12 @@ namespace noleggio_veicoli_VS
 
         }
 
+        private void veicoliCHECK_SelectedValueChanged(object sender, EventArgs e) { }
 
-        private void veicoliCHECK_SelectedValueChanged(object sender, EventArgs e)
+
+        private void veicoliCHECK_ItemCheck(object sender, ItemCheckEventArgs e) { }
+
+        private void veicoliCHECK_SelectedIndexChanged(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             foreach (var checkBox in veicoliCHECK.CheckedItems)
@@ -129,6 +164,7 @@ namespace noleggio_veicoli_VS
                 //serverSearchRequest(veicolo);
             }
         }
+        
     }
 }
 
