@@ -56,7 +56,7 @@ namespace noleggio_veicoli_VS
             this.veicoliCHECK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.veicoliCHECK.Name = "veicoliCHECK";
             this.veicoliCHECK.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.veicoliCHECK.Size = new System.Drawing.Size(197, 89);
+            this.veicoliCHECK.Size = new System.Drawing.Size(197, 106);
             this.veicoliCHECK.TabIndex = 7;
             this.veicoliCHECK.SelectedIndexChanged += new System.EventHandler(this.veicoliCHECK_SelectedIndexChanged);
             // 

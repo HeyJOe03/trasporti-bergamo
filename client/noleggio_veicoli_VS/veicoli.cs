@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace noleggio_veicoli_VS
 {
@@ -238,6 +239,7 @@ namespace noleggio_veicoli_VS
 
             return text;
         }
+
     }
     ////////////////////////////////////////////////////////////////////////CLASSE BICI-CLASSE BICI-CLASSE BICI/////////////////////////////////////////////////////////////////////////////////
     public class Bici : Veicolo
@@ -271,11 +273,6 @@ namespace noleggio_veicoli_VS
         protected override void Veicolo_from_dictionary(Dictionary<string, string> d)
         {
             base.Veicolo_from_dictionary(d);
-
-
-
-
-
             tipologia = d["tipologia"];
             char.TryParse(d["dimensione"],out char dim);
             dimensione = dim;
@@ -361,6 +358,19 @@ namespace noleggio_veicoli_VS
                 return costoSblocco;
             }
         }
+
+        public override string ToString()
+        {
+            string text = base.ToString();
+            text = text +
+                "Tipologia: " + tipologia + '\n' +
+                "Dimensione: " + dimensione + '\n' +
+                "Seggiolino: " + seggiolino.ToString() + '\n' +
+                "Casco: " + casco.ToString() + '\n' +
+                "Costo sblocco: " + costoSblocco.ToString() + '\n'
+                ;
+            return text;
+        }
     }
     ////////////////////////////////////////////////////////////////////////CLASSE EBIKE-CLASSEEBIKE-CLASSE EBIKE///////////////////////////////////////////////////////////////////////////////
     public class EBike : Bici
@@ -402,6 +412,15 @@ namespace noleggio_veicoli_VS
             float.TryParse(d["caricaBatteria"], out float cb);
             caricaBatteria = cb;
         }
+
+        public override string ToString()
+        {
+            string text = base.ToString();
+            text = text +
+                "CaricaBatteria: " + caricaBatteria.ToString() +'\n'
+                ;
+            return text;
+        }
     }
     ////////////////////////////////////////////////////////////////////CLASSE MONOPATTINO-CLASSE MONOPATTINO-CLASSE MONOPATTINO////////////////////////////////////////////////////////////////
     public class Monopattino : Veicolo
@@ -431,8 +450,6 @@ namespace noleggio_veicoli_VS
             //costoGiorno = cG;
             segnaleAcustico = sa;
         }
-
-  
 
         public int BatteriaMassima
         {
@@ -472,6 +489,16 @@ namespace noleggio_veicoli_VS
 
             bool.TryParse(D["segnaleAcustico"], out bool s);
             this.segnaleAcustico = s;
+        }
+
+        public override string ToString()
+        {
+            string text = base.ToString();
+            text = text +
+                "Batteria massima: " + batteriaMassima.ToString() + '\n' +
+                "Segnale acustico: " + segnaleAcustico.ToString() + '\n'
+                ;
+            return text;
         }
     }
     ////////////////////////////////////////////////////////////////CLASSE MOTORINOELETTRICO-CLASSE MOTORINOELETTRICO-CLASSE MOTORINOELETTRICO//////////////////////////////////////////////////
@@ -554,6 +581,17 @@ namespace noleggio_veicoli_VS
             this.Radio = r;
             int.TryParse(D["livelloBatteria"], out int lb);
             this.livelloBatteria = lb;
+        }
+
+        public override string ToString()
+        {
+            string text =  base.ToString();
+            text = text +
+                "Targa: " + targa + "\n" +
+                "Livello batteria: " + livelloBatteria.ToString() + "\n" +
+                "Radio: " + radio.ToString() + '\n'; 
+                ;
+            return text;
         }
     }
     ////////////////////////////////////////////////////////////////////////CLASSE AUTO-CLASSE AUTO-CLASSE AUTO/////////////////////////////////////////////////////////////////////////////////

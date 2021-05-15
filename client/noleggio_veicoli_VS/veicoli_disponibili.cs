@@ -17,28 +17,20 @@ namespace noleggio_veicoli_VS
     {
         private readonly string URLsearch;
         private string serverResponse = "";
-
-        //private const string url = "https://www.google.com/maps/d/edit?mid=1zeyNvs0maJ7A1r9HMXDlso5MDxTgEbPd&usp=sharing";
+        public static bool noleggioState = true;
 
         public veicoli_disponibili()
         {
             InitializeComponent();
             URLsearch = "http://localhost:3000/search/";
-
-            //string s = "";
-           
-            //serverSearchRequest("ebike");
-            //try { BrowserMap.Navigate(url); } catch(Exception e) { String error = e.Message; }
         }
       
         private async void serverSearchRequest(string veicolo)
         {
-            //string request = Program.DictionaryToString(richiesta);
-
             string request = "";
 
-            //try
-            //{
+            try
+            {
                 using (var client = new HttpClient())
                 {
 
@@ -58,8 +50,8 @@ namespace noleggio_veicoli_VS
                         if (elements[i][elements[i].Length -1] != '}') elements[i] = elements[i] + "}";
                     }
 
-                    
-                    Dictionary<string, string> daJson = new Dictionary<string, string>();
+
+                    Dictionary<string, string> daJson;// = new Dictionary<string, string>();
                     switch (veicolo)
                     {
                         case "auto":
@@ -127,11 +119,11 @@ namespace noleggio_veicoli_VS
                         listBox1.Items.Add(veicoloUserName + ":" + daJson["ID"]);
                     }
                 }
-            //} catch (Exception e){
-            //    label2.Text = e.Message;
-            //}
-            
-        }
+        } catch (Exception e){
+                label2.Text = e.Message;
+            }
+
+}
 
         private void veicoliCHECK_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -168,19 +160,25 @@ namespace noleggio_veicoli_VS
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            string item_string = "";
 
             foreach (var item in listBox1.SelectedItems)
             {
-            
-                Noleggio formNoleggio = new Noleggio(item.ToString());
-                formNoleggio.Show();
-
+                item_string = item.ToString();
                 break; //solo 1 selezionato
             }
 
+            //se viene chiuso il form lo obbliga a riaprirsi fino a quando il noleggio è attivo
+            Noleggio formNoleggio = new Noleggio(item_string);
+            while (noleggioState)
+            {
+                noleggioState = false;
+                formNoleggio.ShowDialog();  //show dialog bloccante
+            }
 
             //label2.Text = sender.GetType().ToString();
         }
+
     }
 }
 
