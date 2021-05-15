@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Windows.Forms;
@@ -119,11 +114,11 @@ namespace noleggio_veicoli_VS
                         listBox1.Items.Add(veicoloUserName + ":" + daJson["ID"]);
                     }
                 }
-        } catch (Exception e){
-                label2.Text = e.Message;
-            }
+            } catch (Exception e){
+                    label2.Text = e.Message;
+        }
 
-}
+    }
 
         private void veicoliCHECK_SelectedIndexChanged(object sender, EventArgs e)
         {
