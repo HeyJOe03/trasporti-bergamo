@@ -1,24 +1,29 @@
 module.exports.motorinoelettrico = ({livelloBatteria,...params}) => {
-    let sql = `UPDATE motorinoelettrico SET ${veicoli(params)},livelloBatteria=${livelloBatteria} WHERE ID=${params.ID} ;`
+    let sql = veicoli(params);
+    sql += `UPDATE motorinoelettrico SET livelloBatteria=${livelloBatteria} WHERE ID=${params.ID} ;`
     return sql;
 }
 module.exports.auto = ({livelloBatteria,...params}) => {
-    let sql = `UPDATE auto SET ${veicoli(params)},livelloBatteria=${livelloBatteria} WHERE ID=${params.ID} ;`
+    let sql = veicoli(params);
+    sql += `UPDATE auto SET ivelloBatteria=${livelloBatteria} WHERE ID=${params.ID} ;`
     return sql;
 }
 
 module.exports.monopattino = ({batteriaMassima,...params}) => {
-    let sql = `UPDATE monopattino SET ${veicoli(params)},batteriaMassima=${batteriaMassima} WHERE ID=${params.ID} ;`
+    let sql = veicoli(params);
+    sql += `UPDATE monopattino SET batteriaMassima=${batteriaMassima} WHERE ID=${params.ID} ;`
     return sql;
 }
 
 module.exports.bici = ({casco,...params}) => {
-    let sql = `UPDATE bici SET ${veicoli(params)},casco=${casco} WHERE ID=${params.ID} ;`
+    let sql = veicoli(params);
+    sql += `UPDATE bici SET casco=${casco} WHERE ID=${params.ID} ;`
     return sql;
 }
 
 module.exports.ebike = ({caricaBatteria,casco,...params}) => {
-    let sql = `UPDATE ebike SET ${veicoli(params)},caricaBatteria=${caricaBatteria},casco=${casco} WHERE ID=${params.ID} ;`
+    let sql = veicoli(params);
+    sql += `UPDATE ebike SET caricaBatteria=${caricaBatteria},casco=${casco} WHERE ID=${params.ID};`
     return sql;
 }
 
@@ -27,7 +32,7 @@ module.exports.utente = (params) => {
 }
 
 
-function veicoli({stato,disponibilita,latitudine,longitudine}){
-    let s = `stato='${stato}',disponibilita='${disponibilita}',latitudine='${latitudine}',longitudine='${longitudine}'`;
+function veicoli({stato,disponibilita,latitudine,longitudine,ID}){
+    let s = `UPDATE veicoli SET stato=${stato},disponibilita=${disponibilita},latitudine=${latitudine},longitudine=${longitudine} WHERE ID=${ID};`;
     return s;
 }
