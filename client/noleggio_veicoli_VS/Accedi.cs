@@ -70,18 +70,16 @@ namespace noleggio_veicoli_VS
 
                     lblCF.Text = serverResponse;
 
-                // TODO: decommentami
+                if (serverResponse == "\"error\":\"no elements\"")
+                {
+                    LBLerror.Text = "Registrati per poter accedere"; return;
+                }
 
-                //if (serverResponse == "\"error\":\"no elements\"")
-                //{
-                //    LBLerror.Text = "Registrati per poter accedere"; return;
-                //}
-
-                //else
-                //{
+                else
+                {
                     Program.accesso = true;
                     this.Close();
-                //}
+                }
 
                 }
                 
