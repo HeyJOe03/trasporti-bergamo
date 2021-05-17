@@ -5,7 +5,7 @@ module.exports.motorinoelettrico = ({livelloBatteria,...params}) => {
 }
 module.exports.auto = ({livelloBatteria,...params}) => {
     let sql = veicoli(params);
-    sql += `UPDATE auto SET ivelloBatteria=${livelloBatteria} WHERE ID=${params.ID} ;`
+    sql += `UPDATE auto SET livelloBatteria=${livelloBatteria} WHERE ID=${params.ID} ;`
     return sql;
 }
 
@@ -15,24 +15,27 @@ module.exports.monopattino = ({batteriaMassima,...params}) => {
     return sql;
 }
 
-module.exports.bici = ({casco,...params}) => {
+module.exports.bici = ({...params}) => {
     let sql = veicoli(params);
-    sql += `UPDATE bici SET casco=${casco} WHERE ID=${params.ID} ;`
     return sql;
 }
 
-module.exports.ebike = ({caricaBatteria,casco,...params}) => {
+module.exports.ebike = ({caricaBatteria,...params}) => {
     let sql = veicoli(params);
-    sql += `UPDATE ebike SET caricaBatteria=${caricaBatteria},casco=${casco} WHERE ID=${params.ID};`
+    sql += `UPDATE ebike SET caricaBatteria=${caricaBatteria} WHERE ID=${params.ID};`
     return sql;
 }
 
-module.exports.utente = (params) => {
-    
+module.exports.noleggia = ({ID}) => {
+    return `UPDATE veicoli SET disponibilita = 1 WHERE ID = ${ID} ;`
+}
+
+module.exports.segnala = ({ID}) => {
+    return `UPDATE veicoli SET disponibilita = 1,stato = 1 WHERE ID = ${ID} ;`
 }
 
 
-function veicoli({stato,disponibilita,latitudine,longitudine,ID}){
-    let s = `UPDATE veicoli SET stato=${stato},disponibilita=${disponibilita},latitudine=${latitudine},longitudine=${longitudine} WHERE ID=${ID};`;
+function veicoli({latitudine,longitudine,ID}){
+    let s = `UPDATE veicoli SET disponibilita = 0,latitudine=${latitudine},longitudine=${longitudine} WHERE ID=${ID};`;
     return s;
 }

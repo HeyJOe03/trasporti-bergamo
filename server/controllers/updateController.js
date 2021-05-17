@@ -14,6 +14,7 @@ module.exports.motorinoelettrico = (req,res) => {
         DB.query(IDquery,(err,result) => {
             if(err) res.json(badQuery);
             else if(result !== '[]'){
+                console.log(veicoliQuery,specificQuery);
                 DB.query(veicoliQuery);
                 DB.query(specificQuery);
                 res.json(goodQuery);
@@ -24,9 +25,11 @@ module.exports.motorinoelettrico = (req,res) => {
     else res.json(missingFields);
 }
 module.exports.auto = (req,res) => {
+    //console.log(req.body);
     if(checkVeicoliFields(req.body) && req.body.livelloBatteria !== undefined){
         [veicoliQuery,specificQuery] = updateSQL.auto(req.body).split(';');
         let IDquery = `SELECT * FROM auto WHERE ID=${req.body.ID};`;
+        console.log(veicoliQuery,specificQuery);
         DB.query(IDquery,(err,result) => {
             if(err) res.json(badQuery);
             else if(result !== '[]'){
@@ -87,11 +90,36 @@ module.exports.ebike = (req,res) => {
     }
     else res.json(missingFields);
 }
-// module.exports.utente = (req,res) => {
+module.exports.noleggia = (req,res) => {
+    if(req.body.ID !== undefined){
+        let sql = `SELECT * FROM veicoli WHERE ID=${req.body.ID};`;
+        //console.log(sql);
+        DB.query(sql,(err,result) => {
+            if(err) res.json(badQuery);
+            else if(result !== '[]'){
+                DB.query(updateSQL.noleggia(req.body));
+                res.json(goodQuery);
+            }
+            else res.json(noElements);
+        });
+    }
+    else res.json(missingFields);
+}
+module.exports.segnala = (req,res) => {
+    if(req.body.ID !== undefined){
+        DB.query(`SELECT * FROM veicoli WHERE ID=${req.body.ID};`,(err,result) => {
+            if(err) res.json(badQuery);
+            else if(result !== '[]'){
+                DB.query(updateSQL.segnala(req.body));
+                res.json(goodQuery);
+            }
+            else res.json(noElements);
+        });
+    }
+    else res.json(missingFields);
+}
 
-// }
-
-function checkVeicoliFields({ID,stato,disponibilita,latitudine,longitudine}){
-    if(ID !== undefined && stato !== undefined && disponibilita !== undefined && latitudine !== undefined && longitudine !== undefined) return true;
+function checkVeicoliFields({ID,latitudine,longitudine}){
+    if(ID !== undefined && latitudine !== undefined && longitudine !== undefined) return true;
     else return false;
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ namespace noleggio_veicoli_VS
     {
         private readonly object rememberMe;
         private bool stopEvent = false;
+        private const string URLupdate = "http://localhost:3000/update/";
         private TimeSpan timer = new TimeSpan(0,0,0,0);
         //private long timer = 0;
 
@@ -154,13 +156,19 @@ namespace noleggio_veicoli_VS
                 timer1.Start();
                 timer1.Tick += new EventHandler(OnTimedEvent);
 
+                updateRequestNoleggia();
+
                 BTNnoleggio.Text = "Termina il noleggio";
+                BTNsegnala.Hide();
             }
             else //termina il noleggio
             {
                 stopEvent = true;
                 veicoli_disponibili.noleggioState = false;
                 BTNnoleggio.Text = "Avvia il noleggio";
+
+                updateDeposita();
+                BTNsegnala.Show();
             }
         }
 
@@ -184,6 +192,13 @@ namespace noleggio_veicoli_VS
 
                 LBLprice.Text = "Costo: " + (new Euro(spesa)).ToString();
 
+                // FIXME: implementazione GPS randomica + calo batteria
+                Random rand = new Random();
+                v.Latitudine = rand.NextDouble() * 180 - 90;
+                v.Longitudine = rand.NextDouble() * 360 - 180;
+
+                LBLinfo.Text = v.ToString();
+
             }
         }
 
@@ -193,6 +208,110 @@ namespace noleggio_veicoli_VS
 
             if (timer != new TimeSpan(0, 0, 0, 0)) veicoli_disponibili.noleggioState = true;
             //veicoli_disponibili.noleggioState = true;
+        }
+
+        private async void updateRequestNoleggia()
+        {
+            if (((Veicolo)rememberMe).Disponibiita == "1" || ((Veicolo)rememberMe).Stato == 1) return;
+
+            string request = "{\"ID\":"+ ((Veicolo)rememberMe).Identificativo + "}";
+
+            using (var client = new HttpClient())
+            {
+
+                var response = await client.PostAsync(
+                       URLupdate + "noleggia",
+                     new StringContent(request, Encoding.UTF8, "application/json")
+                );
+                //string serverResponse = response.Content.ReadAsStringAsync().Result;
+                
+            }
+
+            ((Veicolo)rememberMe).Disponibiita = "1";
+
+        }
+
+        private async void updateRequestSegnala()
+        {
+            if (((Veicolo)rememberMe).Disponibiita == "1" || ((Veicolo)rememberMe).Stato == 1) return;
+
+            string request = "{\"ID\":" + ((Veicolo)rememberMe).Identificativo + "}";
+
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsync(
+                       URLupdate + "segnala",
+                     new StringContent(request, Encoding.UTF8, "application/json")
+                );
+                //string serverResponse = response.Content.ReadAsStringAsync().Result;
+            }
+
+            ((Veicolo)rememberMe).Stato = 1;
+        }
+
+        private async void updateDeposita()
+        {
+            Veicolo a = (Veicolo)rememberMe;
+            string request = "{\"ID\":" + a.Identificativo + ",\"latitudine\":" + a.Latitudine.ToString().Replace(',','.') + ",\"longitudine\":" + a.Longitudine.ToString().Replace(',', '.');
+            switch (rememberMe.GetType().ToString())
+            {
+                case "noleggio_veicoli_VS.Auto":
+                    request += ",\"livelloBatteria\":" + ((Auto)rememberMe).LivelloBatteria;
+                    break;
+                case "noleggio_veicoli_VS.MotorinoElettrico":
+                    request += ",\"livelloBatteria\":" + ((MotorinoElettrico)rememberMe).LivelloBatteria;
+                    break;
+                case "noleggio_veicoli_VS.EBike":
+                    request += ",\"caricaBatteria\":" + ((EBike)rememberMe).CaricaBatteria;
+                    break;
+                case "noleggio_veicoli_VS.Monopattino":
+                    request += ",\"livelloBatteria\":" + ((Monopattino)rememberMe).BatteriaMassima;
+                    break;
+                default:
+                    break;
+            }
+
+            request += "}";
+
+            string veicoloName = "";
+            switch (rememberMe.GetType().ToString())
+            {
+                case "noleggio_veicoli_VS.Auto":
+                    veicoloName = "auto";
+                    break;
+                case "noleggio_veicoli_VS.MotorinoElettrico":
+                    veicoloName = "motorinoelettrico";
+                    break;
+                case "noleggio_veicoli_VS.EBike":
+                    veicoloName = "ebike";
+                    break;
+                case "noleggio_veicoli_VS.Monopattino":
+                    veicoloName = "monopattinoelettrico";
+                    break;
+                case "noleggio_veicoli_VS.Bici":
+                    veicoloName = "bici";
+                    break;
+                default:
+                    break;
+            }
+
+
+
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsync(
+                       URLupdate+ "/deposita/" + veicoloName,
+                     new StringContent(request, Encoding.UTF8, "application/json")
+                );
+                //string serverResponse = response.Content.ReadAsStringAsync().Result;
+            }
+
+            ((Veicolo)rememberMe).Disponibiita = "0";
+        }
+
+        private void BTNsegnala_Click(object sender, EventArgs e)
+        {
+            updateRequestSegnala();
         }
     }
 }

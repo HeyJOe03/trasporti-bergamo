@@ -110,8 +110,7 @@ namespace noleggio_veicoli_VS
                                 break;
                         }
 
-
-                        listBox1.Items.Add(veicoloUserName + ":" + daJson["ID"]);
+                        if(daJson["disponibilita"]=="0") listBox1.Items.Add(veicoloUserName + ":" + daJson["ID"]);
                     }
                 }
             } catch (Exception e){

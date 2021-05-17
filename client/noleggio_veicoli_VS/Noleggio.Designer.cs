@@ -36,6 +36,7 @@ namespace noleggio_veicoli_VS
             this.BTNnoleggio = new System.Windows.Forms.Button();
             this.LBLtime = new System.Windows.Forms.Label();
             this.LBLprice = new System.Windows.Forms.Label();
+            this.BTNsegnala = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LBLinfo
@@ -85,11 +86,22 @@ namespace noleggio_veicoli_VS
             this.LBLprice.TabIndex = 4;
             this.LBLprice.Text = "Costo: €0.00";
             // 
+            // BTNsegnala
+            // 
+            this.BTNsegnala.Location = new System.Drawing.Point(552, 375);
+            this.BTNsegnala.Name = "BTNsegnala";
+            this.BTNsegnala.Size = new System.Drawing.Size(132, 49);
+            this.BTNsegnala.TabIndex = 5;
+            this.BTNsegnala.Text = "Segnala un problema";
+            this.BTNsegnala.UseVisualStyleBackColor = true;
+            this.BTNsegnala.Click += new System.EventHandler(this.BTNsegnala_Click);
+            // 
             // Noleggio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BTNsegnala);
             this.Controls.Add(this.LBLprice);
             this.Controls.Add(this.LBLtime);
             this.Controls.Add(this.BTNnoleggio);
@@ -110,5 +122,6 @@ namespace noleggio_veicoli_VS
         private System.Windows.Forms.Button BTNnoleggio;
         private System.Windows.Forms.Label LBLtime;
         private System.Windows.Forms.Label LBLprice;
+        private System.Windows.Forms.Button BTNsegnala;
     }
 }
