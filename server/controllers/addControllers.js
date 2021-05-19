@@ -155,17 +155,15 @@ module.exports.monopattinoelettrico = (req,res) => {
 }
 module.exports.utente = (req,res) => {
 
-    console.log(req.body);
     let sql = insertSQL.utente(req.body);
     if(sql === '') {res.json(MissingFields); return}
 
     DB.query(`SELECT CF FROM utenti WHERE CF = '${req.body.CF}';`, (err,result) => {
-        console.log(result);
         if (err) return false;
         if (JSON.stringify(result) !== JSON.stringify([])) res.json(Omonimi); // se ci sono degli omonimi
         else{
             DB.query(sql, (err) => {
-                if (err) res.json(queryError);
+                if (err){ res.json(queryError);err.message();}
                 else res.status(200).json(goodState);
             });
         }

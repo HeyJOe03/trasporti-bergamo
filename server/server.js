@@ -10,8 +10,12 @@ const search = require('./routes/search');
 //require('dotenv/config');   //FIXME: probabilmente da rimuovere
 const DB = require('./db/dbconnection');
 
+//require('dotenv');
+
+let DB_STATE = true;
+
 DB.connect((e) => {
-    if(e) {console.log("error"); data= false;}
+    if(e) {console.log("error"); data= false; DB_STATE = false}
     else console.log('db connected')
 });
 
@@ -22,7 +26,11 @@ app.use('/add',add);
 app.use('/search',search);
 
 app.get('/', (req,res) => {
-    res.send('The server is working');
+    //const DBn = process.env.DB_NAME;
+    //const DBu = process.env.DB_USER;
+    //const DBp = process.env.DB_PASSWORD;
+    //const data = {DBn,PORT,DBu,DBp};
+    res.send({DB_STATE});
 });
 
 app.listen(PORT, () => console.log(`> Listening on port: ${PORT}`));

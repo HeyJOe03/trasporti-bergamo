@@ -114,7 +114,7 @@ namespace noleggio_veicoli_VS
         private string registraStringrRequest()
         {
             string request =
-                "{\"CF\":\"" + lblCF.Text +
+                "{\"CF\":\"" + TXBCF.Text +
                 "\",\"documento\":\"" + comboBox1.Text +
                 "\",\"giorno\":" + CalendarNascita.Value.Day +
                 ",\"mese\":"+ CalendarNascita.Value.Month +

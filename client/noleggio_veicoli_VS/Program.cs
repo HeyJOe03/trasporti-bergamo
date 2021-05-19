@@ -18,7 +18,11 @@ namespace noleggio_veicoli_VS
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Accedi());
             accesso = true;
-            if(accesso) Application.Run(new veicoli_disponibili());
+            if (accesso)
+            {
+                Application.Run(new veicoli_disponibili());
+
+            }
 
         }
 

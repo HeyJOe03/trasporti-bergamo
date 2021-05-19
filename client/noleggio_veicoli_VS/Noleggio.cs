@@ -133,7 +133,7 @@ namespace noleggio_veicoli_VS
                     break;
             }
 
-            Maps a = new Maps(lat,lon, 14.5);
+            Maps a = new Maps(lat,lon, 10.5);
             a.ShowDialog();
         }
 

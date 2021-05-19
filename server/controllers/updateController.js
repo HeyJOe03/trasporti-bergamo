@@ -14,7 +14,6 @@ module.exports.motorinoelettrico = (req,res) => {
         DB.query(IDquery,(err,result) => {
             if(err) res.json(badQuery);
             else if(result !== '[]'){
-                console.log(veicoliQuery,specificQuery);
                 DB.query(veicoliQuery);
                 DB.query(specificQuery);
                 res.json(goodQuery);
@@ -25,11 +24,9 @@ module.exports.motorinoelettrico = (req,res) => {
     else res.json(missingFields);
 }
 module.exports.auto = (req,res) => {
-    //console.log(req.body);
     if(checkVeicoliFields(req.body) && req.body.livelloBatteria !== undefined){
         [veicoliQuery,specificQuery] = updateSQL.auto(req.body).split(';');
         let IDquery = `SELECT * FROM auto WHERE ID=${req.body.ID};`;
-        console.log(veicoliQuery,specificQuery);
         DB.query(IDquery,(err,result) => {
             if(err) res.json(badQuery);
             else if(result !== '[]'){
@@ -93,7 +90,6 @@ module.exports.ebike = (req,res) => {
 module.exports.noleggia = (req,res) => {
     if(req.body.ID !== undefined){
         let sql = `SELECT * FROM veicoli WHERE ID=${req.body.ID};`;
-        //console.log(sql);
         DB.query(sql,(err,result) => {
             if(err) res.json(badQuery);
             else if(result !== '[]'){

@@ -169,7 +169,7 @@ namespace noleggio_veicoli_VS
                 noleggioState = false;
                 formNoleggio.ShowDialog();  //show dialog bloccante
             }
-
+            return;
             //label2.Text = sender.GetType().ToString();
         }
 
