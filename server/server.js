@@ -30,7 +30,7 @@ app.get('/', (req,res) => {
     //const DBu = process.env.DB_USER;
     //const DBp = process.env.DB_PASSWORD;
     //const data = {DBn,PORT,DBu,DBp};
-    res.send({DB_STATE});
+    res.send({DB_STATE,"DB_connection":process.env.DATABASE_URL});
 });
 
 app.listen(PORT, () => console.log(`> Listening on port: ${PORT}`));
